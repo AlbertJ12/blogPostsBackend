@@ -10,7 +10,7 @@ const blogSchema = new mongoose.Schema({
         required: true
     },
     categoryId: {
-        type: Number,
+        type: String,
         required: true
     },
 },{

@@ -6,6 +6,11 @@ export const getBlogPosts = async (req, res) => {
         if (await Blog.countDocuments() === 0) {
             return res.status(404).json({success:false, message: "Blogs not found"})
         }
+
+        if(req.query.categoryId) {
+            blogs = await Blog.find({categoryId: req.query.categoryId});
+        }   
+        
         res.status(200).json({success:true, data: blogs});
     }
     catch (error) {
@@ -25,21 +30,6 @@ export const getBlogPostById = async (req, res) => {
     }
     catch (error) {
         console.log("Error in getting blog", error.message);
-        res.status(500).json({success:false, message: "Internal Server Error"});
-    }
-}
-
-export const getBlogsByCategory = async (req, res) => {
-    const { categoryId } = req.params;
-    try {
-        let blogs = await Blog.find({categoryId: categoryId});
-        if (!blogs) {
-            return res.status(404).json({success:false, message: "Blogs not found"})
-        }
-        res.status(200).json({success:true, data: blogs});
-    }
-    catch (error) {
-        console.log("Error in getting blogs", error.message);
         res.status(500).json({success:false, message: "Internal Server Error"});
     }
 }

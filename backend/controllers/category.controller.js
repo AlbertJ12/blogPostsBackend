@@ -6,7 +6,7 @@ export const getCategories= async (req, res) => {
         if (!categories) {
             return res.status(404).json({success:false, message: "Categories not found"})
         }
-        res.status(200).json({categories});
+        res.status(200).json({success:true, data: categories});
     }
     catch (error) {
         console.log("Error in getting categories", error.message);
